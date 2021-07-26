@@ -13,8 +13,16 @@ string numberColumnName = "Numeric Value";
 int[] lighterLevels = {60,40,20}; //write descending
 int[] darkerLevels = {25,50}; //write ascending 
 
+//affected measures table should contain ONLY the names of the color measures to be affected by the calc group
+//sucha a table can be created with the "Affected Measures Calc Table" macro
+string affectedMeasuresTableName = "Affected Measures"; 
+string affectedMeasuresColumnName = "Measure";
+
+
 
 // ----- do not modify beyond this line if you do not know what you are doing 
+
+
 
 string hexCodeQualified = "'" + calcTableName + "'[" + hexCodeColumnName + "]"; 
 string numberQualified = "'" + calcTableName + "'[" + numberColumnName + "]";
@@ -25,6 +33,17 @@ Model.DiscourageImplicitMeasures = true;
 var calculationGroupTable1 = Model.AddCalculationGroup(calculationGroupName);
 
 (Model.Tables[calculationGroupName].Columns["Name"] as DataColumn).Name = calculationGroupColumnName;
+
+//prepares part of the expressions that come 
+string affectedMeasuresValues = "VALUES('" + affectedMeasuresTableName + "'[" + affectedMeasuresColumnName + "])";
+
+//wrapping statement to avoid affecting all measures in the scope 
+string calcItemProtection = 
+    "IF(" + 
+    "   SELECTEDMEASURENAME() IN " + affectedMeasuresValues + "," + 
+    "   <CODE> ," + 
+    "   SELECTEDMEASURE() " + 
+    ")";
 
 var calcItemExpression = 
 "VAR hexValue =" + 
@@ -94,7 +113,7 @@ foreach(var lightLevel in lighterLevels){
 
     string calcItemName = lightLevel  + "% lighter"; 
     var lightCalcItem = calculationGroupTable1.AddCalculationItem(calcItemName);
-    lightCalcItem.Expression = calcItemExpression; 
+    lightCalcItem.Expression = calcItemProtection.Replace("<CODE>",calcItemExpression);
     lightCalcItem.FormatDax(); 
     lightCalcItem.Ordinal = calcItemOrdinalIndex; 
     calcItemOrdinalIndex++;     
