@@ -1,5 +1,5 @@
 // '2021-07-26 / B.Agullo / 
-// this script creates a calculation group that modifies the light balance of a color measure affected by it
+// this script creates a calculation group that modifies the transparency of a color measure affected by it
 
 string calculationGroupName = "Transparency Effect"; 
 string calculationGroupColumnName = "Transparency Effect"; 
