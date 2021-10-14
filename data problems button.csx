@@ -25,6 +25,11 @@ if (Selected.Measures.Count != 1) {
 string navigationTableName = Interaction.InputBox("Provide a name for navigation measures table name", "Navigation Table Name", "Navigation", 740, 400);
 if(navigationTableName == "") return;
 
+if(Model.Tables.Any(Table => Table.Name == navigationTableName)) {
+    Error(navigationTableName + " already exists!");
+    return; 
+};
+
 string buttonTextMeasureName = Interaction.InputBox("Name for your button text measure", "Button text measure name", "Button Text", 740, 400);
 if(buttonTextMeasureName == "") return;
 
@@ -43,18 +48,25 @@ if(thereAreDataProblemsMeasureName == "") return;
 string dataProblemsSheetName = Interaction.InputBox("Where are the data problems detail?", "Data problems Sheet", "Data Problems", 740, 400);
 if(dataProblemsSheetName == "") return;
 
+
 //colors will be created if not present
-string buttonColorMeasureNameWhenVisible = "bad"; 
-string buttonColorMeasureValueWhenVisible = "\"#D64554\""; 
-string buttonColorMeasureNameWhenInvisible = "transparent"; 
+string buttonColorMeasureNameWhenVisible = Interaction.InputBox("What's the color measure name when the button is visible?", "Visible color measure name", "Warning Color", 740, 400);
+if(buttonColorMeasureNameWhenVisible == "") return;
+
+string buttonColorMeasureValueWhenVisible = Interaction.InputBox("What's the color code of " + buttonColorMeasureNameWhenVisible + "?", "Visible color code", "#D64554", 740, 400);
+if(buttonColorMeasureValueWhenVisible == "") return;
+buttonColorMeasureValueWhenVisible = "\"" + buttonColorMeasureValueWhenVisible + "\""
 
 
+string buttonColorMeasureNameWhenInvisible = Interaction.InputBox("What's the color measure name when button is invisible?", "Invisible color measure name", "Report Background Color", 740, 400);
+if(buttonColorMeasureNameWhenInvisible == "") return;
+buttonColorMeasureNameWhenInvisible = "\"" + buttonColorMeasureNameWhenInvisible + "\""
+
+string buttonColorMeasureValueWhenInvisible = Interaction.InputBox("What's the color code of " + buttonColorMeasureNameWhenInvisible + "?", "Invisible color measure name", "Report Background Color", 740, 400);
+if(buttonColorMeasureValueWhenInvisible == "") return;
+buttonColorMeasureValueWhenInvisible = "\"" + buttonColorMeasureValueWhenInvisible + "\""
 
 
-if(Model.Tables.Any(Table => Table.Name == navigationTableName)) {
-    Error(navigationTableName + " already exists!");
-    return; 
-};
 
 //prepare array to iterate on new measure names 
 string[] newMeasureNames = 
