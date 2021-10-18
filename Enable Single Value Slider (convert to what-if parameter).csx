@@ -1,0 +1,1 @@
+Selected.Column.SetExtendedProperty("ParameterMetadata", "{\"version\":0}", ExtendedPropertyType.Json);
