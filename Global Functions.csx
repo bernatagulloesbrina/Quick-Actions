@@ -1,23 +1,20 @@
 #r "Microsoft.VisualBasic"
 using Microsoft.VisualBasic;
-using System;
 
-
-class Test
+public static class globalFunctions 
 {
-    public void SayHello()
-    {
-        Info("Hello") ;
+    
+    public static string Init (this string myString, string defValue) {
+        
+        myString = defValue; 
+
     }
-//    public myString {
-//         
-//
-//    }
+
+
 }
 
 
-
-var t = new Test() ;
-t.SayHello() ;
+string t.Init("Hola"); 
+Info(t); 
 
 
