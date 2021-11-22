@@ -11,9 +11,7 @@ using Microsoft.VisualBasic;
 // the first time you will be asked to introduce a name for your calc group and dummy measure 
 // second time on it will reuse the same group and dummy measure to add new calc items 
 // the script will create a new calc item for eachs elected measure
-
-// IT DOES NOT CHECK IF THE CALC GROUP ALREADY HAS A CALC ITEM WIHT THE SAME NAME 
-
+// A pop-up will show if the measure has been previously selected and thus already has a calculation item with its name
 //
 // ----- do not modify script below this line -----
 //
