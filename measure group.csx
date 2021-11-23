@@ -75,3 +75,5 @@ string calcItemExpression = "IF( ISSELECTEDMEASURE( " + affectedMeasures + "), S
 timeIntelCalcGroup.AddCalculationItem(calcItemName,calcItemExpression); 
 timeIntelCalcGroup.FormatDax(); 
 
+CallDaxFormatter(); 
+
