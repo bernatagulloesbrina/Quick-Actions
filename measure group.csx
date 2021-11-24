@@ -212,3 +212,5 @@ foreach (var m in Selected.Measures) {
 
 
 
+CallDaxFormatter(); 
+
