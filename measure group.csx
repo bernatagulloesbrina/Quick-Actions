@@ -12,6 +12,10 @@ using Microsoft.VisualBasic;
 // second time on it will reuse the same group and dummy measure to add new calc items 
 // the script will create a new calc item for eachs elected measure
 // A pop-up will show if the measure has been previously selected and thus already has a calculation item with its name
+
+
+// TODO: SWAP PRECEDENCE OF NEW CALC GROUP AND SELECTED CALC GROUP 
+
 //
 // ----- do not modify script below this line -----
 //
@@ -20,7 +24,11 @@ string affectedMeasures = "";
 
 string selectedCalcItems = ""; 
 string selectedCalcItemsCalcGroupName = ""; 
+
+CalculationGroup selectedCalculationGroup = null as CalculationGroup; 
 Column selectedCalcItemsCalcGroupColumn = null as Column; 
+
+
 
 if (Selected.Measures.Count == 0) {
     
@@ -57,7 +65,7 @@ if (Selected.Measures.Count == 0) {
         if(selectedCalcItemsCalcGroupName == "") {
             
             
-
+            //selectedCalculationGroup = ci.CalculationGroupTable;
             selectedCalcItemsCalcGroupName = ci.CalculationGroupTable.Name; 
         };
         
@@ -188,10 +196,18 @@ foreach (var m in Selected.Measures) {
         CalculationItem newCalcItem =  DynamicMeasureCG.AddCalculationItem(newCalcItemName, newCalcItemExpression); 
         newCalcItem.FormatDax(); 
     } else { 
-        Info("Calculation item " + m.Name + " already present. Please modify manually, or delete it and try again") 
+        Info("Calculation item " + m.Name + " already present. Please modify manually, or delete it and try again"); 
     };
 
 }; 
+
+
+//se asegura que el calculation group original siga teniendo precedencia superior 
+//int DynamicMeasureCGprecedence = DynamicMeasureCG.CalculationGroup.Precedence;
+//int SelectedCalculationGroupPrecedence = selectedCalculationGroup.CalculationGroup.Precedence; 
+
+
+
 
 
 
